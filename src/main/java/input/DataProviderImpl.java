@@ -42,10 +42,11 @@ public class DataProviderImpl implements DataProvider {
     private void processFilesContent(){
         final Map<String, Product> productMap = new HashMap<>();
         final Map<String, Integer> quantityByProductMap = new HashMap<>();
-
+        // file product.csv
         var productsFileContent = this.dataReader.getData(clientPath, 3, 2);
 
         Map<String, Client> clientMap = new HashMap<>();
+        // for each client in client file
         for (var clientRecord: productsFileContent){
             var productName = clientRecord.get(0);
             var clientName = clientRecord.get(1);
@@ -53,12 +54,13 @@ public class DataProviderImpl implements DataProvider {
 
             Client client = clientMap.computeIfAbsent(clientName, Client::new);
             var product = productMap.computeIfAbsent(productName, Product::new);
+            // update total qty of product in circulation
             var oldQuantity = quantityByProductMap.getOrDefault(productName, 0);
             quantityByProductMap.put(productName, oldQuantity + quantity);
             client.addAsset(product, quantity);
         }
         this.clients.addAll(clientMap.values().stream().toList());
-
+        // prices.csv file content
         var pricesFileContent = dataReader.getData(ptfPath, 5, 4);
 
         Map<String, Set<Product>> productsByPtf = new HashMap<>();
@@ -71,12 +73,14 @@ public class DataProviderImpl implements DataProvider {
 
             Product product = productMap.computeIfAbsent(productName, Product::new);
             product.addUnderlying(new Underlying(underlying, currency, price));
+            // create set associated to portfolio map and extract reference
             var portfolioSet = productsByPtf.computeIfAbsent(portfolio, p->new HashSet<>());
             portfolioSet.add(product);
         }
 
         for (String ptfByProduct : productsByPtf.keySet()){
             var ptf = new Portfolio(ptfByProduct);
+            // for each value in ptf set of product get qty from quantityByProductMap computed before
             for (Product product : productsByPtf.get(ptfByProduct) )
                 ptf.addProduct(product, quantityByProductMap.get(product.getName()) );
             this.portfolios.add(ptf);

@@ -14,11 +14,12 @@ import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
+        // get output files path from command line if exists
         CommandLine cmd = getCommandLine(args);
-
         String reportClientOutput = Optional.ofNullable(cmd.getOptionValue("outputClient")).orElse(System.getProperty("user.home"));
         String reportPtfOutput = Optional.ofNullable(cmd.getOptionValue("outputPtf")).orElse(System.getProperty("user.home"));
 
+        // name of files to process
         String forexPath = "Forex.csv";
         String ptfPath = "Prices.csv";
         String clientPath = "Product.csv";
