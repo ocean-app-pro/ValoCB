@@ -28,6 +28,7 @@ public class ToCsvWriter implements DataWriter {
         }
         catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 }

@@ -32,6 +32,7 @@ public class FromCsvReader implements DataReader {
             }
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
         return records.stream()
                 .filter(x -> isParsableRow(x, expectedSize, numberIndex))
