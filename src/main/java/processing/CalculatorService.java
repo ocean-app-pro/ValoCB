@@ -3,7 +3,6 @@ package processing;
 import input.DataProvider;
 import lombok.extern.log4j.Log4j2;
 import model.*;
-import output.DataWriter;
 import service.ForexService;
 
 import java.math.BigDecimal;
@@ -14,12 +13,10 @@ import java.util.stream.Collectors;
 public class CalculatorService {
 
     DataProvider dataProvider;
-    DataWriter dataWriter;
 
 
-    public CalculatorService(DataProvider dataProvider, DataWriter dataWriter) {
+    public CalculatorService(DataProvider dataProvider) {
         this.dataProvider = dataProvider;
-        this.dataWriter = dataWriter;
     }
 
     public Map<String, BigDecimal> calculateSumByClient() {

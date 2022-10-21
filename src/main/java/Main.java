@@ -28,7 +28,7 @@ public class Main {
         DataWriter dataWriter = new ToCsvWriter();
 
         DataProviderImpl dataProvider = new DataProviderImpl(dataReader, forexPath, ptfPath, clientPath);
-        CalculatorService calculatorService = new CalculatorService(dataProvider, dataWriter);
+        CalculatorService calculatorService = new CalculatorService(dataProvider);
 
 
         Map<String, BigDecimal> sumByPtf = calculatorService.calculateSumByPortfolio();

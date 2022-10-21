@@ -28,7 +28,7 @@ public class DataProviderImpl implements DataProvider {
 
     @Override
     public ForexService getForex() {
-        if (this.forexService == null){
+        if (this.forexService == null) {
             final ForexService service = new ForexService();
             this.dataReader.getData(forexPath, 3, 2).stream()
                     .map(x-> new Forex(x.get(0), x.get(1), new BigDecimal(x.get(2))))
@@ -74,7 +74,7 @@ public class DataProviderImpl implements DataProvider {
             Product product = productMap.computeIfAbsent(productName, Product::new);
             product.addUnderlying(new Underlying(underlying, currency, price));
             // create set associated to portfolio map and extract reference
-            var portfolioSet = productsByPtf.computeIfAbsent(portfolio, p->new HashSet<>());
+            var portfolioSet = productsByPtf.computeIfAbsent(portfolio, p-> new HashSet<>());
             portfolioSet.add(product);
         }
 
@@ -82,7 +82,7 @@ public class DataProviderImpl implements DataProvider {
             var ptf = new Portfolio(ptfByProduct);
             // for each value in ptf set of product get qty from quantityByProductMap computed before
             for (Product product : productsByPtf.get(ptfByProduct) )
-                ptf.addProduct(product, quantityByProductMap.get(product.getName()) );
+                ptf.addProduct(product, quantityByProductMap.get(product.getName()));
             this.portfolios.add(ptf);
         }
     }

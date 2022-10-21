@@ -20,7 +20,7 @@ public class CalculatorTest {
 
     @BeforeAll
     public static void init() {
-        calculatorService = new CalculatorService(new DataProviderTestImpl(), null);
+        calculatorService = new CalculatorService(new DataProviderTestImpl());
     }
 
     @Test
