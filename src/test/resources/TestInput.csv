@@ -1,0 +1,9 @@
+PricingDate,,
+,,
+,,
+,,
+Currency,Currency,Value
+EUR,USD,2
+EUR,,12
+EUR,EUR,EUR
+EUR,GBP,-15
